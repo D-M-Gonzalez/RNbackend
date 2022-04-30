@@ -11,9 +11,7 @@ export const logInUser = async (req, res) => {
   } else {
     try {
       const checkUser = await User.findOne({ user_name: req.body.user_name });
-      console.log(checkUser)
       const checkPassword = await bcrypt.compare(req.body.password, checkUser.password);
-      console.log(checkPassword)
       const token = jwt.sign(
         {
           id: checkUser._id,
