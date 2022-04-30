@@ -54,3 +54,15 @@ Content-Type: application/json
     "user_name": "naomi.quiroz.purizaca@gmail.com",
     "password": "NQ9951-CH"
 }
+
+
+https://regalitosnao-backend.herokuapp.com/
+
+###
+POST https://regalitosnao-backend.herokuapp.com/api/users/login/user
+Content-Type: application/json
+
+{
+    "user_name": "naomi.quiroz.purizaca@gmail.com",
+    "password": "NQ9951-CH"
+}
