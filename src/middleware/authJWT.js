@@ -6,7 +6,6 @@ const verifyToken = (req, res, next) => {
   if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
     const token = JSON.parse(req.headers.authorization.split(' ')[1])
     jwt.verify(token, process.env.API_SECRET, function (err, decode) {
-      console.log("verify")
       if (err) req.user = undefined;
       User.findOne({
           _id: decode.id

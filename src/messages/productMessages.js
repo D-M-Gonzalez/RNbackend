@@ -32,8 +32,8 @@ export default class ProductMessage {
         this.data.subcategory = docData.subcategory;
         this.data.description1 = docData.description1;
         this.data.description2 = docData.description2;
-        docData.images.forEach((el)=>{
-            this.data.images.push(el)
-        })
+        this.data.tags = docData.tags;
+        this.data.date = docData.date;
+        this.data.images = docData.images;
     }
 }

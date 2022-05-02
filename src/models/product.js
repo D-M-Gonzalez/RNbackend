@@ -28,11 +28,11 @@ const productsSchema = new Schema({
         type: String,
         default: ""
     },
-    tags: {
-        type: String,
-        default: ""
+    tags: [String],
+    date: {
+        type: Date,
     },
-    images: [],
+    images: [String],
 },{
     versionKey: false,
     timestamps: true

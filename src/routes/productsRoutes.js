@@ -6,13 +6,15 @@ import { updateProduct } from "../controllers/products/updateProduct";
 import { findProductById } from "../controllers/products/findProductById";
 import {upload} from '../middleware/multer'
 import verifyToken from "../middleware/authJWT";
+import storeImages from "../middleware/firebaseUpload";
+import defineTags from "../middleware/tags";
 
 //Product routes definition
 const router = Router();
 
 router.get('/', findAllProducts) //Gets all the products in the DB
 
-router.post('/',verifyToken,upload.array("images",3),createProduct) //Creates a new product, requires token
+router.post('/',verifyToken,upload.array('images',3),storeImages,defineTags,createProduct) //Creates a new product, requires token
 
 router.put('/',verifyToken,updateProduct) //Modifies a product, uses Query parameteres, requires a token
 

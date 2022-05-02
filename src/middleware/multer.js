@@ -1,10 +1,9 @@
 import multer from 'multer';
 import path from 'path';
 
-const storage = multer.diskStorage({  
-    destination: './public/images', 
+const storage = multer.memoryStorage({  
       filename: (req, file, cb) => {
-          cb(null, file.fieldname + '_' + file.originalname )
+          cb(null,file.originalname )
     }
 });
 

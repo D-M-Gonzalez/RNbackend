@@ -1,11 +1,10 @@
 import Product from "../../models/product";
 import ProductMessage from "../../messages/productMessages";
-import fs from 'fs';
-import path from 'path';
 
 //Controller used to create a new product
 export const createProduct = async (req, res) => {
   const response = new ProductMessage("create"); //message object with initial message create
+  const date = new Date();
 
   if (!req.body.name || !req.body.price || !req.body.category || !req.body.subcategory) {
     response.setStatusMessage(406);
@@ -18,10 +17,13 @@ export const createProduct = async (req, res) => {
       subcategory: req.body.subcategory,
       description1: req.body.description1,
       description2: req.body.description2,
-      tags: req.body.tags,
+      date: date,
     });
-    req.files.forEach((el)=>{
-      newProduct.images.push("localhost:8000/images/" + el.fieldname + '_' + el.originalname)
+    res.locals.tags.forEach((el)=>{
+      newProduct.tags.push(el)
+    })
+    res.locals.images.forEach((el)=>{
+      newProduct.images.push(el)
     })
     const productSaved = await newProduct.save();
     response.setStatusMessage(200);
