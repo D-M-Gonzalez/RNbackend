@@ -3,15 +3,14 @@ import morgan from 'morgan';
 import cors from 'cors';
 import ProductsRoutes from './routes/productsRoutes';
 import UserRoutes from './routes/userRoutes';
-import aws from 'aws-sdk';
+import 'dotenv/config'
 
+require('dotenv').config();
 const app = express();
 
 //Port settings
-app.set('port',process.env.PORT || 8000);
+app.set('port',process.env.PORT);
 app.set("view engine", "ejs");
-
-aws.config.region = 'sa-east-1'
 
 //Middlewares used
 app.use(cors());
