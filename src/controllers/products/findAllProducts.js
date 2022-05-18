@@ -1,6 +1,9 @@
 import Product from "../../models/product";
 import { getPagination } from "../../libs/getPagination";
 import ProductMessage from "../../messages/productMessages";
+import filterBySearch from "../../libs/filterBySearch";
+import filterByCategory from "../../libs/filterByCategory";
+import filterBySubCategory from "../../libs/filterBySubCategory";
 
 //Controller used to return all the products
 export const findAllProducts = async (req, res) => {
@@ -9,18 +12,24 @@ export const findAllProducts = async (req, res) => {
     total: 0
   };
   try {
-    const { page, size } = req.query;
-    const { limit, offset } = getPagination(page-1, size);
-    const list = await Product.paginate({}, { offset, limit });
-    const total = await Product.find().countDocuments();
-    response.items = list.docs.map((el) => {
+    const { page, size, category, subcategory, search} = req.query;
+    const allProducts = await Product.find()
+
+    const filteredBySearch = filterBySearch(allProducts,search)
+    const filteredByCat = filterByCategory(filteredBySearch,category)
+    const filteredBySubCat = filterBySubCategory(filteredByCat,subcategory)
+
+    const paginatedProducts = filteredBySubCat.slice((size*(page-1)),(size*page))
+    response.items = paginatedProducts.map((el) => {
       const doc = new ProductMessage("locate"); //message object for every index with initial message locate
       doc.setStatusMessage(200);
       doc.setData(el);
       return doc;
     });
-    response.total = total;
-    res.json(response); //returns the entire object array with the stored status and data
+
+
+    response.total = filteredBySubCat.length;
+    res.json(response); //returns the entire object array with the stored status and data*/
   } catch (error) {
     console.log(error)
     const singleResponse = new ProductMessage("locate"); //message object with inital message locate
