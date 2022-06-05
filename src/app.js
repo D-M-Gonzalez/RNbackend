@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import ProductsRoutes from './routes/productsRoutes';
 import UserRoutes from './routes/userRoutes';
+import MessageRoutes from './routes/messageRoutes';
 import 'dotenv/config'
 
 require('dotenv').config();
@@ -23,5 +24,6 @@ app.use('/images', express.static('images'));
 
 app.use('/api/products',ProductsRoutes); //Goes to products
 app.use('/api/users',UserRoutes); //Goes to users
+app.use('/api/messages',MessageRoutes); //Goes to messages
 
 export default app;

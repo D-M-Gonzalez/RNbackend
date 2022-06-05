@@ -66,3 +66,15 @@ Content-Type: application/json
     "user_name": "naomi.quiroz.purizaca@gmail.com",
     "password": "NQ9951-CH"
 }
+
+###
+PUT http://localhost:8000/api/products/prices/0.9
+Content-Type: application/json
+
+###
+POST http://localhost:8000/api/messages
+Content-Type: application/json
+
+{
+    "text": "message"
+}

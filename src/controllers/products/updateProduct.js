@@ -4,9 +4,10 @@ import ProductMessage from "../../messages/productMessages";
 //Controller used to update a product, and it's brand if necessary
 export const updateProduct = async (req, res) => {
   const response = new ProductMessage("update"); //message object with initial message update
-  if (req.query.id && req.user) {
+  const date = new Date();
+  if (req.params.id && req.user) {
     try {
-      const foundProduct = await Product.findById(req.query.id);
+      const foundProduct = await Product.findById(req.params.id);
       const updatedProduct = {
         name: req.body.name,
         price: req.body.price,
@@ -14,11 +15,20 @@ export const updateProduct = async (req, res) => {
         subcategory: req.body.subcategory,
         description1: req.body.description1,
         description2: req.body.description2,
-        tags: req.body.tags,
+        date: date,
       };
-      req.files.forEach((el)=>{
-        newProduct.images.push("localhost:8000/images/" + el.fieldname + '_' + el.originalname)
-      })
+      if (res.locals.tags.length > 0){
+        updatedProduct.tags = []
+        res.locals.tags.forEach((el)=>{
+          updatedProduct.tags.push(el)
+        })
+      }
+      if (res.locals.images.length > 0){
+        updatedProduct.images = []
+        res.locals.images.forEach((el)=>{
+          updatedProduct.images.push(el)
+        })
+      }
       await foundProduct.updateOne(updatedProduct);
       const productSaved = await foundProduct.save();
       if (productSaved) {
