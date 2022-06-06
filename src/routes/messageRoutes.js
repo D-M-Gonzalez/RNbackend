@@ -14,7 +14,7 @@ router.post('/', createMessage);
 
 router.get('/:id', getMessageById);
 
-router.put('/:id', verifyToken,updateMessage);
+router.put('/:id', verifyToken, updateMessage);
 
 router.delete('/:id', verifyToken,deleteMessage);
 
