@@ -14,13 +14,7 @@ app.set('port',process.env.PORT);
 app.set("view engine", "ejs");
 
 //Middlewares used
-app.use(
-    cors({
-        origin: "https://regalitosnaomanager.herokuapp.com", 
-        credentials: true,
-    })
-);
-app.options('*',cors());
+app.use(cors());
 
 app.use(morgan('dev'));
 app.use(express.json());
