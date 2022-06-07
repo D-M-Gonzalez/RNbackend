@@ -8,24 +8,27 @@ import 'dotenv/config'
 
 require('dotenv').config();
 const app = express();
+const corsOptions = {
+    origin: false,
+}
 
 //Port settings
 app.set('port',process.env.PORT);
 app.set("view engine", "ejs");
 
 //Middlewares used
-app.use(cors());
-app.options('*', cors())
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions))
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 app.use(express.static('public')); 
-app.use('/images',cors(), express.static('images'));
+app.use('/images', express.static('images'));
 
-app.use('/api/products',cors(),ProductsRoutes); //Goes to products
-app.use('/api/users',cors(),UserRoutes); //Goes to users
-app.use('/api/messages',cors(),MessageRoutes); //Goes to messages
+app.use('/api/products',ProductsRoutes); //Goes to products
+app.use('/api/users',UserRoutes); //Goes to users
+app.use('/api/messages',MessageRoutes); //Goes to messages
 
 export default app;
