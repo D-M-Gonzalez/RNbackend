@@ -25,10 +25,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 app.use(express.static('public')); 
-app.use('/images', express.static('images'));
+app.use('/images',cors(corsOptions), express.static('images'));
 
-app.use('/api/products',ProductsRoutes); //Goes to products
-app.use('/api/users',UserRoutes); //Goes to users
-app.use('/api/messages',MessageRoutes); //Goes to messages
+app.use('/api/products',cors(corsOptions),ProductsRoutes); //Goes to products
+app.use('/api/users',cors(corsOptions),UserRoutes); //Goes to users
+app.use('/api/messages',cors(corsOptions),MessageRoutes); //Goes to messages
 
 export default app;
