@@ -18,7 +18,6 @@ app.set("view engine", "ejs");
 
 //Middlewares used
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions))
 
 app.use(morgan('dev'));
 app.use(express.json());
